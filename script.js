@@ -17,14 +17,17 @@
  * 	/miconnect/current_url#overlay=a/b  should generate current_url_overlay_a_b
  * 	/miconnect/a/b?c=d&e=f should generate a_b_c_d_e_f;
  */
-(function($){ 
-  $(document).ready(function(){
-		$.HTML_ID =  function(element){ 
-			this.idList = [];
-			this.element  =  element;
-			this.$id = this.element.attr('href');
-			this.settings = $.Settings;  
-	  };
+(function($) { 
+  $(document).ready(function() {
+    
+    "use strict";
+    
+    $.HTML_ID =  function(element) { 
+      this.idList = [];
+      this.element  =  element;
+      this.$id = this.element.attr('href');
+      this.settings = $.Settings;  
+    };
 
 	  $.Settings = { 
     	// Patterns to be removed from the href string 
@@ -80,8 +83,8 @@
   			return this; 
   	  },
   	  
-  	  removeSpecialCharacters: function(){
-    	  for(var i in this.settings.specialCharacters ){ 
+  	  removeSpecialCharacters: function() {
+    	  for(var i in this.settings.specialCharacters ) { 
     	    var regex =  new RegExp(this.settings.specialCharacters[i],"g");
     	    this.$id = this.$id.replace(regex , this.settings.replacingCharacter); 
         }
@@ -89,8 +92,8 @@
     	  return this;  
   	  },
   		
-  	  removeVariableStrings: function(val){ 
-  			 for(var i in this.settings.variableStrings ){ 
+  	  removeVariableStrings: function(val) { 
+  			 for(var i in this.settings.variableStrings ) { 
   				 var regex =  new RegExp(this.settings.variableStrings[i],"g"); 
   				 this.$id = this.$id.replace(regex , this.settings.replacingCharacter); 
   			 }
@@ -149,14 +152,14 @@
   	},
 		
 		// Extending the default String Class 
-  	String.prototype.trim = function(){
+  	String.prototype.trim = function() {
   			//trim underscore from front and last
   		var regex = new RegExp("^"+ $.Settings.replacingCharacter +"+|"+ $.Settings.replacingCharacter +"+$/g"); 
   		return this.replace(regex, ""); 
   	}; 
   
   	// Extending the default String Class
-  	String.prototype.isEmpty =  function(){ 
+  	String.prototype.isEmpty =  function() { 
   		if (this.valueOf() == "") 
   			return true;
   		return false; 
